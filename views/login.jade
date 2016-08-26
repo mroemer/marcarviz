@@ -1,0 +1,25 @@
+extends ./layout.jade
+
+block content
+    .header
+        h1 User Login
+        h2 MARCARviz
+    .content
+        form(role='form', action="/login",method="post", style='max-width: 100%; text-align: center;')
+            .form-group
+                input.form-control(type='email', name="username", placeholder='Enter Email')
+            .form-group
+                input.form-control(type='password', name="password", placeholder='Password')
+            // only show link to forgot page if mails can be sent
+            if mail 
+                .form-group
+                    a(href='/forgot') Forgot password?
+            button.btn.btn-primary(type='submit')
+                i.fa.fa-check
+                | Submit
+            a(href='/')
+                button.btn.btn-danger(type="button")
+                    i.fa.fa-close
+                    | Cancel
+            if (info)
+                h4.alert.alert-danger=info

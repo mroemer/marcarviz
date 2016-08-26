@@ -1,0 +1,13 @@
+extends ./layout.jade
+
+block content
+    .header
+        h1 Reset Password
+        h2 MARCARviz
+    .content
+        form(role='form', action="/reset",method="post", style='max-width: 100%; text-align: center;')
+            .form-group
+                input.form-control(type='password', name="password", placeholder='New password')
+            button.btn.btn-primary(type='submit')
+                i.fa.fa-check
+                | Submit

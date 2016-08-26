@@ -1,0 +1,23 @@
+extends ../layout
+block content
+    .header
+        h1 Volcano plots
+        h2 MARCARviz
+    .content
+        h3#vis-title Volcano plot
+        #wait(style='width=100%;text-align: center; padding: 50px;')
+            i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+            br
+            | Rendering plots...
+        #vis-container.invis(style='min-height: 100%;')
+            #volcano-container
+                #volcano
+            #barplot-container
+                #barplot
+            h3 Differentially expressed genes
+            #diff-table
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script.
+        window.id = "#{id}";
+    script(type='text/javascript', src='/public/js/result_pages/volcano.js')

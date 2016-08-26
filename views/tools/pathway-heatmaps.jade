@@ -1,0 +1,41 @@
+extends ../layout
+block css-includes
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css')
+
+block content
+    .header
+        h1 Gene set heat maps
+        h2 MARCARviz
+    .content
+        h3 About this tool
+        p This tool generates heat maps that show the significance of gene set enrichment. Heat maps show perturbations of many gene sets in many
+            | samples in an intuitive fashion. This tool supports clustering of gene sets and conditions.
+        h3 Treatment selection
+        #treatmentSelection
+        h3 Settings
+        fieldset
+            .form-group
+                label(for='ratioCutoff') log2(Fold Change) Cutoff
+                input.form-control#ratioCutoff(type='number', value=1, step=0.1, min=0)
+                .help-block Set the threshold for differential regulation. A log2(Fold Change) of 1 corresponds to 2-fold up- or down-regulation.
+            .form-group
+                label(for='pValCutoff') p-Value Cutoff
+                input.form-control#pValCutoff(type='number', value=0.05, step=0.01, min=0)
+                .help-block This cutoff will be used to select genes that are differentially expressed based on the limma p-value.
+            .form-group
+                label(for='geneSets') Gene Sets
+                #geneSets.setting(style='vertical-align: top;')
+                .help-block Select the gene sets you want to scan for enrichment.
+            //.form-group
+            //    label(for='colCluster') Column clustering
+            //    select.form-control#colCluster
+            //        option(value=1, selected=true) On
+            //        option(value=0) Off
+            //    .help-block Turn clustering of samples on or off
+        button#btnHeatmap.btn.btn-primary(type='button', disabled='disabled', style='display:block;margin: 10px 0px;') Generate heat map!
+        #resultLink
+block js-includes
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js')
+    script(type='text/javascript', src='/public/js/shared.js')
+    script(type='text/javascript', src='/public/js/shared/treatment-selection.js')
+    script(type='text/javascript', src='/public/js/tools/pathway-heatmaps.js')

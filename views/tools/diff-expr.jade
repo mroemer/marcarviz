@@ -1,0 +1,36 @@
+extends ../layout
+block content
+    .header
+        h1 Differential expression
+        h2 MARCARviz
+    .content
+        h3 About this tool
+        p This tool allows you to find and inspect the differentially expressed genes for a condition of interest. Each
+            | probe of the microarray is filtered for fold change and significance of the difference between treated and 
+            | control animals. The fold change and p-value are shown in a table.
+        h3 Treatment selection
+        .form-group
+            label(for='sltStudy') Study
+            select.form-control#sltStudy
+            .help-block Select the MARCAR study that contains the condition of interest
+        .form-group
+            label(for='sltTreatment') Condition
+            select.form-control#sltTreatment(disabled)
+            .help-block Select the condition you want to analyse
+        #frmOptions
+            h3 Gene filter thresholds
+            form
+                .form-group
+                    label(for='optFCCutoff') log2(Fold Change) Threshold
+                    input#optFCCutoff.form-control(type='number', value=1, min=0, step=0.1)
+                    .help-block Set the threshold for differential regulation. A log2(Fold Change) of 1 corresponds to 2-fold up- or down-regulation.
+                .form-group
+                    label(for='optPValue') p-Value Threshold
+                    input#optPValue.form-control(type='number', value=0.05, min=0, max=1, step=0.01)
+                    .help-block Set the significance threshold for differential regulation.
+        p
+            button#btnExecute.btn.btn-primary(type='button', disabled='disabled') Show differentially expressed genes!
+        #resultLink
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script(type='text/javascript', src='/public/js/tools/diff-expr.js')

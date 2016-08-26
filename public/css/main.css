@@ -1,0 +1,57 @@
+/*
+The content `<div>` is where all your content goes.
+*/
+.content {
+    /*color: #777;*/
+    color: rgb(68, 78, 87);
+    padding: 0 2em;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.content p {
+    text-align:justify;
+}
+
+.header {
+    margin: 0;
+    color: rgb(50, 65, 75);
+    text-align: center;
+    padding: 2.5em 2em 0;
+    border-bottom: 1px solid #eee;
+}
+.header h1 {
+    margin: 0.2em 0;
+    color: rgb(50, 65, 75);
+    font-size: 3em;
+    font-weight: 300;
+}
+.header h2 {
+    font-weight: 300;
+    color: rgb(123, 125, 132);
+    padding: 0;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.invis {
+    display: none;
+}
+
+.btn {
+    margin: 5px 5px 0 5px;
+}
+
+/*
+Bootbox
+*/
+.large-table .modal-dialog{
+    width:100%;
+}
+
+/* custom table captions PCA */
+.table-caption {
+    color: #333333;
+    font-size: 18px;
+    text-align: center;
+}

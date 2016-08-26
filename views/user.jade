@@ -1,0 +1,29 @@
+extends ./layout.jade
+block content
+    .header
+        h1 Gene Lists
+        h2 MARCARviz
+    .content
+        h3 Saved Gene Lists:
+        #geneLists
+        h3 Add New List:
+        .form-group
+            label(for='listName') Gene list name
+            input.form-control#listName(placeholder='Enter list name')
+            .help-block Enter the name of the new gene list
+        .form-group
+            label(for='sltIdentifier') Identifier
+            select.form-control#sltIdentifier
+                option(id='entrez') Entrez Gene ID
+                option(id='hgnc') HGNC Gene Symbol
+                option(id='mgi') MGI Gene Symbol
+                option(id='rgd') RGD Gene Symbol
+            .help-block Select the target identifier for the identifier mapping
+        .form-group
+            label(for='newList') Genes
+            textarea.form-control#newList(rows=10, cols=25)
+            .help-block Enter the genes for list in the textbox above
+        button#btnSaveList.btn.btn-primary Add List
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script(type='text/javascript', src='/public/js/user.js')

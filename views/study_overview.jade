@@ -1,0 +1,73 @@
+extends ./layout.jade
+block content
+    .header
+        h1= study.shortname
+        h2 MARCARviz
+    .content
+        table.table.table-condensed
+            tr
+                th Summary
+                if (study.summary)
+                    td= study.summary
+                else
+                    td= study.fullname
+            tr
+                th Species
+                td= study.species
+            tr
+                th Platform
+                td= study.platform
+            tr
+                th Design
+                if (study.details.designInfo)
+                    td= study.details.designInfo
+                else
+                    td not available
+            tr
+                th Replicates
+                if (study.details.replicates)
+                    td= study.details.replicates
+                else 
+                    td not available
+            tr
+                th Quality control
+                if (study.details.qcInfo)
+                    td!= study.details.qcInfo
+                else
+                    td not available
+            tr
+                th Normalization
+                if (study.details.normInfo)
+                    td!= study.details.normInfo
+                else
+                    td not available
+            tr
+                th Summarization
+                if (study.details.cdfInfo)
+                    td!= study.details.cdfInfo
+                else
+                    td not available
+            tr
+                th Statistical analysis
+                if (study.details.statInfo)
+                    td!= study.details.statInfo
+                else
+                    td not available
+            if (study.details.pubInfo)
+                tr
+                    th Publication
+                    td!= study.details.pubInfo
+            tr 
+                th GEO
+                td
+                    a(href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc="+study.GEO, target="_blank") 
+                        = study.GEO
+            tr
+                th Data download
+                td
+                    a(href="http://www.ncbi.nlm.nih.gov/geo/download/?acc="+study.GEO+"&format=file").btn.btn-primary Download raw data (from GEO)
+                    a(href="/api/get_study_data?type=N&study=" + study.name).btn.btn-primary Download normalized data
+                    a(href="/api/get_study_data?type=F&study=" + study.name).btn.btn-primary Download fold change table
+                    a(href="/api/get_study_data?type=P&study=" + study.name).btn.btn-primary Download p-value table
+
+block js-includes

@@ -1,0 +1,34 @@
+extends ../layout
+block content
+    .header
+        h1 Venn diagrams
+        h2 MARCARviz
+    .content
+        h3 Venn diagram
+        p The lists of differentially expressed genes can be inspected by clicking on the number representing the list.
+            br
+            | In addtion, statistics for each condition are shown, e.g., the total number of deregulated genes (bar plot). The
+            | thresholds for differential expression can be set by the user to adjust for different dynamic ranges of
+            | differential expression.
+            br
+            | The venn diagram can be exported as a PNG image or a CSV file.
+        #wait(style='width=100%;text-align: center; padding: 50px;')
+            i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+            br
+            | Rendering plots...
+        #vis-container.invis(style='min-height: 100%;')
+            #venn-container(style='float: left; margin: 10px')
+                #venn
+            p Click on a venn diagram figure to display the shared genes:
+            textarea#names(readonly, style="width: 45%;", wrap="on", rows="20")
+            #crossAnalysis.invis(style="clear:left;")
+                h3 Further analysis
+                p You can perform further analysis using the button below:
+                a#btnHeatmap.btn.btn-primary(role='button', class='button') Show as heat map
+                #resultLink
+block js-includes
+    script(type='text/javascript', src='/public/js/jvenn.min.js')
+    script(type='text/javascript', src='/public/js/shared.js')
+    script.
+        window.id = "#{id}";
+    script(type='text/javascript', src='/public/js/result_pages/venn.js')

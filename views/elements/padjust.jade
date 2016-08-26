@@ -1,0 +1,11 @@
+.form-group
+    label(for='sltOption-pAdjust') p-Value Correction Method
+    select.form-control.setting#sltOption-pAdjust(name='padjust')
+        option(value='BH', selected='true') Benjamini-Hochberg
+        option(value='bonferroni') Bonferroni
+        option(value='holm') Holm
+        option(value='hochberg') Hochberg
+        option(value='hommel') Hommel
+        option(value='BY') Benjamini-Yekutieli
+        option(value='none') None
+    .help-block This method will be used to correct the p-values for multiple testing.

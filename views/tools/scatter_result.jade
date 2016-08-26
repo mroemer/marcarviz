@@ -1,0 +1,30 @@
+//
+   Created by roemer on 07.01.15.
+
+extends ../layout
+block content
+    .header
+        h1 Scatter plots
+        h2 MARCARviz
+    .content
+        h3 Scatter plot
+        p This scatter plot is interactive! Hover over any point to see additional information. Regression metrics (R
+            sup 2
+            | , slope, and p-value) are available by hovering over the regression line.
+        #wait(style='width=100%;text-align: center; padding: 50px;')
+            i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+            br
+            | Rendering plots...
+        #vis-container.invis(style='min-height: 100%;')
+            #scatter-container
+                #scatter
+            #crossAnalysis.invis
+                h3 Further analysis
+                p You can perform further analysis of the differentially expressed genes using the buttons below:
+                a#btnVenn.btn.btn-primary(role='button', class='button') Show as Venn diagram
+                #resultLink
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script.
+        window.id = "#{id}";
+    script(type='text/javascript', src='/public/js/result_pages/scatter.js')

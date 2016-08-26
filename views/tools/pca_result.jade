@@ -1,0 +1,23 @@
+extends ../layout
+block content
+    .header
+        h1 Principal component analysis
+        h2 MARCARviz
+    .content
+        h3 PCA biplot
+        p Biplots show the first and second principal components on the x- and y-axis. This allows a quick inspection 
+            | of similarities in the expression profiles. Move the mouse over a point to get additional information.
+            | You can export the plot as PNG, JPG, PDF, or SVG.
+        #wait(style='width=100%;text-align: center; padding: 50px;')
+            i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+            br
+            | Rendering PCA biplot...
+        #vis-container.invis(style='min-height: 100%;')
+            #biplot-container
+block js-includes
+    script.
+        window.id = "#{id}";
+    script(type='text/javascript', src='https://code.highcharts.com/highcharts-3d.js')
+    script(type='text/javascript', src='/public/js/shared/pca.js')
+    script(type='text/javascript', src='/public/js/result_pages/pca.js')
+        

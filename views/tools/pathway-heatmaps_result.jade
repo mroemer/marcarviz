@@ -1,0 +1,36 @@
+extends ../layout
+block content
+    .header
+        h1 Gene set heat maps
+        h2 MARCARviz
+    .content
+        h3 Heat map
+        p Each row of the heat map corresponds to one pathway or gene set. Each column corresponds to one
+            | condition or sample.
+            | This interactive heat maps support zooming for both rows and columns. You can change the color scale used for
+            | the heat map by clicking on the color scale. The value of a cell is shown when hovering over the cell.
+            | You can export this heat map as a PNG image. The underlying data visualized in the heat map can be exported as a
+            | CSV file.
+        #wait(style='width=100%;text-align: center; padding: 50px;')
+            i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+            br
+            | Rendering heat map...
+        #vis-container.invis(style='min-height: 100%;')
+            #heatmap-container
+                button#btnHideLegend.btn.btn-default(style="float: right;") Hide legend
+                div(style="clear: both;")
+                #heatmap
+                button.btn.btn-default#btnExportCSV
+                    i.fa.fa-download
+                    |  Download data as CSV
+                #row_ids_callback.invis
+                    p
+                        b
+                            | Selected rows:
+                    span#txtSelectedRows
+block js-includes
+    script(type='text/javascript', src='/public/js/inchlib-1.1.0.js')
+    script(type='text/javascript', src='/public/js/kinetic-v5.1.0.min.js')
+    script.
+        window.id = "#{id}";
+    script(type='text/javascript', src='/public/js/result_pages/pathway-heatmaps.js')

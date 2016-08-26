@@ -1,0 +1,13 @@
+Package: Rtea
+Type: Package
+Title: R functions for the tea web-platform
+Version: 0.1
+Date: 2015-11-17
+Author: Michael Roemer
+Maintainer: Michael Roemer <michael.roemer@uni-tuebingen.de>
+Description: This packages compiles a number of helper functions for the tea web-platform, e.g., identifier mapping, pathway enrichment, etc.
+License: LGPL (>= 2)
+LazyData: FALSE
+Depends: R (>= 2.10)
+Suggests: testthat
+Imports: RMongo, plyr, rjson

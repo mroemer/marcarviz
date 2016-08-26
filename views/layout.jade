@@ -1,0 +1,132 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        title MARCARviz
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.4/css/bootstrap-select.min.css')
+        link(rel='stylesheet', href='https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.css')
+        link(rel='stylesheet', href='https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css')
+        link(rel='stylesheet', href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css")
+        link(rel='stylesheet', href='/public/css/menu.css')
+        link(rel='stylesheet', href='/public/css/main.css')
+        link(rel='stylesheet', href='/public/css/data-tables-custom.css')
+        block css-includes
+    body(style='height:100%;')
+        #wrap
+            #menu
+                nav.navbar.navbar-default
+                    .container-fluid
+                        .navbar-header
+                            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+                                span.sr-only Toggle navigation
+                                span.icon-bar
+                                span.icon-bar
+                                span.icon-bar
+                            a.navbar-brand(href='/') MARCARviz
+                        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                            ul.nav.navbar-nav
+                                li.dropdown
+                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                        | Analysis 
+                                        span.caret
+                                    ul.dropdown-menu
+                                        li
+                                            a(href='/analysis/diff-expr')
+                                                | Differential
+                                                | expression
+                                        li
+                                            a(href='/analysis/pathway-enrichment')
+                                                | Gene set
+                                                | enrichment
+                                li.dropdown
+                                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                        | Visualization 
+                                        span.caret
+                                    ul.dropdown-menu
+                                        li
+                                            a(href='/visualization/pca') PCA
+                                        li
+                                            a(href='/visualization/heatmaps') Heat maps
+                                        li
+                                            a(href='/visualization/volcano') Volcano plots
+                                        li
+                                            a(href='/visualization/scatter') Scatter plots
+                                        li
+                                            a(href='/visualization/venn') Venn diagrams
+                                        li
+                                            a(href='/visualization/pathway-heatmaps')
+                                                | Gene set
+                                                | heat maps
+                                li
+                                    a(href='/studies') Studies
+                            ul.nav.navbar-nav.navbar-right
+                                if (!user)
+                                    li
+                                        a(href='/login') Login
+                                    li
+                                        a(href='/register') Register
+                                if (user)
+                                    li
+                                        a(href='/history') History
+                                    li
+                                        a(href='/user') Gene lists
+                                    li.dropdown
+                                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                            i.fa.fa-user
+                                            |  User
+                                            span.caret
+                                        ul.dropdown-menu
+                                            li
+                                                a(href='/reset') Change password
+                                            li
+                                                a(href='/logout') Logout
+                                li
+                                    a(href='/contact') Contact
+            #layout
+                .container
+                    #message.invis
+                    if messages.error
+                        h4.alert.alert-danger
+                            div= messages.error
+                    if messages.info
+                        h4.alert.alert-info
+                            div= messages.info
+                    if messages.success
+                        h4.alert.alert-success
+                            div= messages.success
+                    block content
+        #footer
+            p
+                | &copy2014-2016 |
+                | University of Tübingen | 
+                a(href='/contact')
+                    | Contact
+                |  | 
+                a(href='http://www.uni-tuebingen.de/impressum.html')
+                    | Impressum
+
+        script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.3.min.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.4.0/math.min.js')
+        script(type='text/javascript', src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.4/js/bootstrap-select.min.js')
+        script(type='text/javascript', src='https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.js')
+        script(type='text/javascript', src='https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js')
+        script(type='text/javascript', src='https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js')
+        script(type='text/javascript', src='https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js')
+        script(type='text/javascript', src='https://cdn.datatables.net/buttons/1.0.3/js/buttons.html5.min.js')
+        script(type='text/javascript', src='https://cdn.datatables.net/buttons/1.0.3/js/buttons.print.min.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.9/highcharts.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.9/highcharts-more.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.9/modules/exporting.js')
+        script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js')
+        script(type='text/javascript', src='/public/js/shared.js')
+        script(type='text/javascript').
+            $.ajaxSetup({cache: false});
+        block js-includes

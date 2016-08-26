@@ -1,0 +1,18 @@
+extends ./layout.jade
+block content
+    .header
+        h1 History
+        h2 MARCARviz
+    .content
+        if (user)
+            h3 My Analysis:
+            p This table shows all analysis that you have performed. To view the result of an analysis, click on
+                | <i class="fa fa-eye" style="color: black"> Result</i>. To see the parameters of an analysis, click on
+                | <i id="icon" class="fa fa-plus-circle" style="color: black"> Details</i>.
+            br
+            table#history(cellpadding='0' cellspacing='0' border='0' class='display')
+        else
+            h2(style='text-align: center;').alert.alert-danger You must login to view your history!
+block js-includes
+    if (user)
+        script(type='text/javascript', src='/public/js/history.js')

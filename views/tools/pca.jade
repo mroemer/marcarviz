@@ -1,0 +1,42 @@
+extends ../layout
+block content
+    .header
+        h1 Principal component analysis
+        h2 MARCARviz
+    .content
+        h3 About this tool
+        p This tool performs a principal component analysis of gene expression data and visualizes the results in a biplot. 
+            | Biplots show the first and second principal components on the x- and y-axis. This allows a quick inspection 
+            | of similarities in the expression profiles.
+        h3 Treatment selection
+        #treatmentSelection
+        h3 Settings
+        //fieldset
+            .form-group
+                label(for='ratioCutoff') log2(Fold Change) Cutoff
+                input.form-control#ratioCutoff(type='number', value=1, min=0, step=0.1)
+                .help-block Set the threshold for differential regulation. A log2(Fold Change) of 1 corresponds to 2-fold up- or down-regulation.
+            .form-group
+                label(for='pvalueCutoff') p-Value Cutoff
+                input.form-control#pvalueCutoff(type='number', value=0.05, step=0.01, min=0)
+                .help-block Set the significance threshold for differential regulation.
+        .form-group
+            label(for='sltSpecies') Species
+            select.form-control#sltSpecies(style='display:block;margin: 0px 0px 10px 0px;')
+                option(id="A") default
+                option(id="H") Homo sapiens
+                option(id="R") Rattus norvegicus
+                option(id="M") Mus musculus
+            .help-block Select the species for which gene identifiers are shown, e.g., for cross-species analysis
+        //.form-group
+            label(for='sltGeneList') Gene lists
+            select.form-control#sltGeneList
+            .help-block You can select a list of genes to display in the heat map.
+        p
+            button#btnPCA.btn.btn-primary(type='button', disabled='disabled')
+                h4 Perform PCA!
+        #resultLink
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script(type='text/javascript', src='/public/js/shared/treatment-selection.js')
+    script(type='text/javascript', src='/public/js/tools/pca.js')

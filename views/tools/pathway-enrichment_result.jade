@@ -1,0 +1,25 @@
+extends ../layout
+block content
+    .header
+        h1 Gene set enrichment
+        h2 MARCARviz
+    .content
+        h3#vis-title Gene set enrichment
+        p This table contains the corrected p-values for each over-representation test and additional information on the 
+            | deregulated genes. Click on the pathway name for  additional information on the pathway. The table can be
+            | searched for pathways and you can exported it as CSV, XLS, or PDF and to your printer.
+        #wait(style='width=100%;text-align: center; padding: 50px;')
+            i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+            br
+            | Rendering table...
+        #vis-container.invis(style='min-height: 100%;')
+            #pathways-container(style='margin-top: 10pt;')
+                #pathways
+            h3 Differentially expressed genes
+            #diff-table
+
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script.
+        window.id = "#{id}";
+    script(type='text/javascript', src='/public/js/result_pages/pathway-enrichment.js')

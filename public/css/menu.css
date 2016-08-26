@@ -1,0 +1,35 @@
+/* MENU */
+#menu {
+    min-width: 800px;
+    background-color: rgb(123, 125, 132);
+}
+
+/* CUSTOM */
+#footer { clear: both;  width: 100%;  }
+#footer p { font-size: 85%; text-align: center; margin-top: 0; margin-bottom: 0;}
+
+.invalid {
+    border: 2px solid red !important;
+}
+
+/*
+Sticky Footer Solution
+by Steve Hatcher
+http://stever.ca
+http://www.cssstickyfooter.com
+*/
+
+* {margin:0;padding:0;}
+
+html, body, #wrap {height: 100%;}
+
+body > #wrap {height: auto; min-height: 100%;}
+
+#layout {padding-bottom: 30px;}  /* must be same as footer size */
+
+#footer {
+    position: relative;
+    height: 30px;
+    margin-top: -30px; /* negative footer height */
+    clear:both;
+}

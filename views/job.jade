@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    .header
+        h1 Job processing...
+        h2 MARCARviz
+    .content
+        if (id)
+            if (refresh)
+                #wait(style='width=100%;text-align: center; padding: 50px;')
+                    i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+                    #jobinfo Starting job...
+            else
+                h4.alert.alert-danger(style="text-align: center") #{response}
+        else
+            h4.alert.alert-danger(style="text-align: center") Job not found!
+
+block js-includes
+    if (refresh)
+        script.
+            function updateJobState() {
+                $.ajax({
+                    url: '/api/get_job_state',
+                    data: {jobID: "#{id}"},
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (job) {
+                        if (job.state > 0) {
+                            $('#jobinfo').html(job.response);
+                            setTimeout(function () {
+                                updateJobState();
+                            }, 1000);
+                        } else {
+                            location.reload();
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('An error has occured:\n' + xhr.responseText);
+                    }
+                });
+            }
+            updateJobState();

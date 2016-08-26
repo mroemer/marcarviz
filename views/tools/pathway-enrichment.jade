@@ -1,0 +1,63 @@
+extends ../layout
+block css-includes
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css')
+
+block content
+    .header
+        h1 Gene set enrichment
+        h2 MARCARviz
+    .content
+        h3 About this tool
+        p This tool allows you to find and inspect the deregulated pathways or enriched gene sets for a condition of 
+            | interest. Available pathways and gene sets include the KEGG, Reactome, and BioCarta databases, and Gene Ontology
+            | sets. For each pathway or gene set from the selected databases, an over-representation test is performed to
+            | identify pathways and gene sets pertubed in the condition.
+        h3 Treatment selection
+        .form-group
+            label(for='sltStudy') Study
+            select.form-control#sltStudy
+            .help-block Select the MARCAR study that contains the condition of interest
+        .form-group
+            label(for='sltTreatment') Condition
+            select.form-control#sltTreatment(disabled)
+            .help-block Select the condition you want to analyse
+        button#btnOptions.btn(onclick='$(\'#frmOptions\').toggle();')
+            i.fa.fa-cog
+            |  Show/Hide Settings
+        #frmOptions.invis
+            h3 Settings
+            .form-group
+                label(for='optFCCutoff') log2(Fold Change) Cutoff
+                input.form-control.setting.float#optFCCutoff(name='fccutoff', type='number', value=1, step=0.1, min=0)
+                .help-block This cutoff will be used to select genes that are differentially expressed. A log2(Fold Change) of 1 corresponds to 2-fold up- or down-regulation.
+            .form-group
+                label(for='optPCutoff') p-Value Cutoff
+                input.form-control.setting.float#optPCutoff(name='pcutoff', type='number', value=0.05, step=0.01, min=0)
+                .help-block This cutoff will be used to select genes that are differentially expressed based on the limma p-value.
+            .form-group
+                label(for='optFCDirection') Regulation Direction
+                select.form-control.setting#optFCDirection(name='direction')
+                    option All
+                    option Up
+                    option Down
+                .help-block This determines if all diffential genes are used for enrichment analysis or only up- or down-regulated genes.
+            .form-group
+                label(for='optGeneSets') Gene Sets
+                #optGeneSets.setting(style='vertical-align: top;')
+                .help-block Select the gene sets you want to scan for enrichment.
+            .form-group
+                label(for='optGSSizeMin') Minimum Gene Set Size
+                input.form-control.setting.integer#optGSSizeMin(name='gssizemin', type='number', value=1, min=1, step=1)
+                .help-block Gene sets with fewer than this number of genes will be removed. For very small gene sets the p-value might not be representative.
+            .form-group
+                label(for='optGSSizeMax') Maximum Gene Set Size
+                input.form-control.setting.integer#optGSSizeMax(name='gssizemax', type='number', value=500, min=2, step=1)
+                .help-block Gene sets with more than this number of genes will be removed. Very large gene sets may be unspecific for the biological problem.
+            include ../elements/padjust
+        button#btnExecute.btn.btn-primary(type='button', disabled='disabled', style='display: block;') Get Enriched Pathways!
+        #resultLink
+
+block js-includes
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js')
+    script(type='text/javascript', src='/public/js/shared.js')
+    script(type='text/javascript', src='/public/js/tools/pathway-enrichment.js')

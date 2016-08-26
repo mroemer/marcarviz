@@ -1,0 +1,29 @@
+extends ../layout
+block content
+    .header
+        h1 Differential expression
+        h2 MARCARviz
+    .content
+        h3#vis-title Differential expression
+        p This table shows the differentially expressed probes for the selected condition. The normalized intensities observed in the
+            | biological replicates are shown when the green plus button is clicked. For each probe, the corresponding gene 
+            | symbol is shown, if available. The table can be searched for specific genes or probe identifiers with the search
+            | bar in the top-right corner. The table can be exported as a CSV, XLSX or PDF file or print it.
+        #wait(style='width=100%;text-align: center; padding: 50px;')
+            i.fa.fa-spinner.fa-5x.fa-spin(style='color: rgb(143, 143, 149); display: inline-block;')
+            br
+            | Rendering table...
+        #vis-container.invis(style='min-height: 100%;')
+            #diff-container(style='margin-top: 10pt;')
+                #diff
+            #crossAnalysis.invis
+                h3 Further analysis
+                p You can perform further analysis of this list of differentially expressed genes using the buttons below:
+                a#btnGeneSetAnalysis.btn.btn-primary(role='button', class='button') Gene set enrichment
+                a#btnVolcano.btn.btn-primary(role='button', class='button') Show Volcano plot
+                #resultLink
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script.
+        window.id = "#{id}";
+    script(type='text/javascript', src='/public/js/result_pages/diff-expr.js')

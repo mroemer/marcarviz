@@ -1,0 +1,61 @@
+extends ../layout
+block content
+    .header
+        h1 Venn diagrams
+        h2 MARCARviz
+    .content
+        h3 About this tool
+        p This tool generates Venn diagrams for up to six conditions. Venn diagrams display the overlap between lists of
+            | differentially expressed genes as overlapping circles.
+            | Each circle corresponds to a condition. The number of genes deregulated only in this condition is shown in
+            | each circle. The number of overlapping genes between conditions is shown in the overlapping regions of the
+            | corresponding circles.
+        #treatmentSelection
+            h3 Condition selection
+            p Select the conditions you want to compare. You can compare conditions from different studies, and
+                | even from different species!
+            #firstTreat
+                h4 Condition 1
+                .form-group
+                    label(for='sltStudy1') Study
+                    select.form-control#sltStudy1
+                .form-group
+                    label(for='sltTreatment1') Condition
+                    select.form-control#sltTreatment1
+        button#btnAddTreat.btn(style="display: block; clear: left;") Add more treatments
+        #probeMapping(style="clear: left;")
+            h3 Gene annotation
+            .form-group
+                label(for='sltSpecies') Species
+                select.form-control#sltSpecies(style='display:block;margin: 0px 0px 10px 0px;')
+                    option(id="A") default
+                    option(id="H") Homo sapiens
+                    option(id="R") Rattus norvegicus
+                    option(id="M") Mus musculus
+                .help-block Select the species
+        button#btnOptions.btn(onclick='$(\'#frmOptions\').toggle();')
+            i.fa.fa-cog
+            |  Show/Hide Settings
+        #frmOptions.invis
+            .form-group
+                label(for='optFCCutoff') log2(Fold Change) Cutoff
+                input.form-control#optFCCutoff(type='text', value='1')
+                .help-block This cutoff will be used to select genes that are differentially expressed. A log2(Fold Change) of 1 corresponds to 2-fold up- or down-regulation.
+            .form-group
+                label(for='optPValue') p-Value Cutoff
+                input.form-control#optPValue(type='text', value='1')
+                .help-block This cutoff will be used to select genes that are differentially expressed.
+            .form-group
+                label(for='optFCDirection') Regulation Direction
+                select.form-control#optFCDirection
+                    option All
+                    option Up
+                    option Down
+                .help-block This determines if all diffential genes are shown in the Venn diagram or only up- or down-regulated genes.
+        p
+        button#btnExecute.btn.btn-primary(type='button', disabled='disabled') Generate Venn!
+        #resultLink
+block js-includes
+    script(type='text/javascript', src='/public/js/shared.js')
+    script(type='text/javascript', src='/public/js/tools/venn.js')
+        

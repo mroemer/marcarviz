@@ -1,0 +1,28 @@
+// this is an example for the config.json
+// the values below are default values, changing them will not have any effect!
+{
+  // the port were HTTP requests are accepted
+  "httpPort": "3000",
+  // the server hosting the MongoDB
+  "db_host": "127.0.0.1",
+  // the data base to be used by this tea instance
+  "db": "tea_dev",
+  // the user for database authentication
+  "db_user": "exampleUser",
+  // the password for database authentication
+  "db_pass": "changethis",
+  // create an HTTPS server?
+  "useHttps": false,
+  // force HTTPS (all HTTP requests are sent redirected to HTTPS)
+  "forceHttps": false,
+  // the port were HTTPS requests are accepted
+  "httpsPort": "8000",
+  // the private key for HTTPS
+  "sslKeyFile": "sslcert/server.key",
+  // the certificate for HTTPS
+  "sslCertFile": "sslcert/server.crt",
+  // an api key for send grid (required for password reset functionality)
+  "sendGridApiKey": "YOURKEYHERE",
+  // sender field for password reset mails 
+  "resetMailSender": "passwordreset@example.com"
+}
