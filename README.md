@@ -8,6 +8,24 @@ This is a Node.js server for analysis and visualization of expression data (e.g.
 
 More information will be added soon. 
 
+Setup
+-----
+
+MARCARviz has been tested with Windows 8.1 64bit and Ubuntu 14.04 LTS.
+
+**Windows**
+
+1. Clone the Git repository
+2. [Install Nodejs](https://nodejs.org/en/download/)
+3. Go to the project directory and install the dependencies with the Node Package Manager
+
+        npm install
+        
+4. [Install the MongoDB server](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/) or create a config.json and change the db_host to point to the database server
+5. Once the MongoDB server is running, start the MARCARviz server
+
+        npm start
+
 License
 -------
 
