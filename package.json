@@ -6,6 +6,10 @@
     { "type" : "git",
       "url" : "https://github.com/mroemer/marcarviz.git" 
     },
+  "bugs":
+    { "url" : "https://github.com/mroemer/marcarviz/issues"
+    , "email" : "mroemer@posteo.de"
+    },
   "description": "A Node.js server for analysis of expression data (e.g., from Microarray or RNAseq experimentes)",
   "main": "server.js",
   "dependencies": {
