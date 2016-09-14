@@ -2,7 +2,7 @@ get.treatment.metadata <- function(studies, treatments, con) {
   metadata <- data.frame(row.names = tag.treatments(treatments, studies))
   force.tagging <- length(unique(studies)) > 1
   for (study in unique(studies)) {
-    md.query <- RMongo::dbGetQueryForKeys(con, "treatments", paste0("{'study': '", study, "', 'name': { $in: ['", paste0(treatments[study == studies],collapse = "','") , "']}}"), keys="{'name': 1, 'conditions': 1}")
+    md.query <- RMongo::dbGetQuery(con, "treatments", paste0("{'study': '", study, "', 'name': { $in: ['", paste0(treatments[study == studies],collapse = "','") , "']}}"))
     md <- md.query$conditions
     if (!is.null(md)) {
       names(md) <- md.query$name
