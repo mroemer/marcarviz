@@ -1,11 +1,16 @@
 MARCARviz framework for analysis of gene expression data
+========================================================
 
-**About**
+About
+-----
+
 This is a Node.js server for analysis and visualization of expression data (e.g., from Microarray or RNAseq experiments).
 
 More information will be added soon. 
 
-**License**
+License
+-------
+
 MARCARviz is available under the MIT License
 
 Copyright (c) 2016 Michael Römer
@@ -16,5 +21,11 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-**Contact**
+The MARCARviz uses JavaScript libraries that are free for personal and non-profit use. For other purposes, please make sure that you obtain the required licenses! These include, but are not limited to:
+
+* HighCharts.js (http://www.highcharts.com/)
+
+Contact
+-------
+
 Michael Römer (mroemer@posteo.de)
