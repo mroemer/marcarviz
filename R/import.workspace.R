@@ -18,11 +18,14 @@ if (file.info(workspaces)$isdir) {
   workspaces <- list.files(workspaces, full.names = T, pattern = "\\.rda$")
 }
 con <- mongoDbConnect(host = argv$host, dbName = argv$database)
-if (!is.na(argv$username)) {
+if (!is.null(argv$username) && !is.na(argv$username)) {
   authenticated <- dbAuthenticate(con, username = argv$username, password = argv$password)
   if (!authenticated) {
     stop("Authentication at MongoDB failed!")
   }
+  auth <- paste0(' -u ', argv$username, ' -p ', argv$password, ' ')
+} else {
+  auth <- ""
 }
 out.dir <- tempdir()
 for (w in workspaces) {
@@ -42,7 +45,7 @@ for (w in workspaces) {
       removedTreatments <- dbRemoveQuery(con, "treatments", query=paste("{study: '", metadata$study$id, "'}", sep=""))
       if (removedTreatments != "ok")  stop(paste("Removing treatments for study", metadata$study$id, "failed!"))
       if (!argv$metadata) {
-        drop.command <- paste0('mongo ', argv$host, '/', argv$database, ' -u ', argv$username, ' -p ', argv$password, ' --eval "printjson(db.', collection, '.drop())"')
+        drop.command <- paste0('mongo ', argv$host, '/', argv$database, auth, ' --eval "printjson(db.', collection, '.drop())"')
         dropData <- system(drop.command, intern = T)
         if (!is.null(attr(dropData, "status")) || tail(dropData, 1) == "false") stop(paste("Error while dropping expression data table for study", metadata$study$id))
       }
@@ -86,6 +89,7 @@ for (w in workspaces) {
     treatment$conditions <- lapply(colnames(cur.metadata[-1]), function(condition) {
       list(name = condition, value = cur.metadata[[condition]])
     })
+    if (length(treatment$conditions) == 0) treatment$conditions <- NULL
     treatment$samples <- rownames(metadata$samples)[which(metadata$samples$group == treat)]
     treatment$controls <- rownames(metadata$samples)[which(metadata$samples$group %in% unique(metadata$samples[treatment$samples,]$control))]
     dbInsertDocument(con, "treatments", toJSON(treatment))
@@ -101,9 +105,13 @@ for (w in workspaces) {
     colnames(fcs) <- paste0("F_", colnames(fcs))
     p <- p.values[[species]]
     colnames(p) <- paste0("P_", colnames(p))
-    norm <- norm.data[[species]]
-    colnames(norm) <- paste0("N_", colnames(norm))
-    data <- as.data.frame(cbind(fcs, p, norm))
+    data <- cbind(fcs, p)
+    if (exists("norm.data")) {
+      norm <- norm.data[[species]]
+      colnames(norm) <- paste0("N_", colnames(norm))
+      data <- cbind(data, norm)
+    }
+    data <- as.data.frame(data)
     data$s <- substr(toupper(species),1,1)
     diff.table <- rbind(diff.table, data)
   }
@@ -121,11 +129,12 @@ for (w in workspaces) {
   write.csv(diff.table, csv.file)
   cat("Done!\n")
   cat(paste("Importing expression data...\n", sep=""))
-  import.command <- paste("mongoimport --host", argv$host, "--db", argv$database, '-u', argv$username, '-p', argv$password, "--collection", collection, "--type csv --headerline --file", csv.file)
+  
+  import.command <- paste("mongoimport --host", argv$host, "--db", argv$database, auth, "--collection", collection, "--type csv --headerline --file", csv.file)
   importStatus <- system(import.command, ignore.stdout = T)
   if (importStatus != 0) stop(paste("Importing expression data failed for study", study$name))
   cat("Creating index...\t")
-  index.command <- paste0('mongo ', argv$host, '/', argv$database, ' -u ', argv$username, ' -p ', argv$password, ' --eval "printjson(db.', collection, '.ensureIndex({s:1, p:1}))"')
+  index.command <- paste0('mongo ', argv$host, '/', argv$database, auth, ' --eval "printjson(db.', collection, '.ensureIndex({s:1, p:1}))"')
   indexStatus <- system(index.command, ignore.stdout = T)
   if (indexStatus != 0) stop(paste("Importing expression data failed for study", study$name))
   cat("Done!\n")
