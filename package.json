@@ -1,8 +1,13 @@
 {
-  "name": "tea",
+  "name": "MARCARviz",
+  "license": "MIT",
   "version": "0.0.1",
+  "repository" :
+    { "type" : "git",
+      "url" : "https://github.com/mroemer/marcarviz.git" 
+    },
   "description": "A Node.js server for analysis of expression data (e.g., from Microarray or RNAseq experimentes)",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "async": "^1.4.2",
     "body-parser": "^1.9.2",
